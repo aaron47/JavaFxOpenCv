@@ -158,9 +158,7 @@ public class EmailSender {
         cancelButton.setVisible(false);
 
         // Start sending email in background
-        CompletableFuture<Boolean> sendTask = CompletableFuture.supplyAsync(() -> {
-            return sendEmail(emailAddress, imageFile);
-        }, emailExecutor);
+        CompletableFuture<Boolean> sendTask = CompletableFuture.supplyAsync(() -> sendEmail(emailAddress, imageFile), emailExecutor);
 
         // When email is sent, close progress dialog and show result
         sendTask.thenAccept(success -> {

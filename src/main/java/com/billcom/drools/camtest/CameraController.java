@@ -12,6 +12,7 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritablePixelFormat;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -56,6 +57,10 @@ public class CameraController {
     private File lastSavedImageFile;
     private int cameraIndex = 0;
 
+    // face detection intervals
+    private static final int FACE_DETECTION_INTERVAL = 10;
+    private int frameCounter = 0;
+
     @FXML
     public void initialize() {
         startCamera();
@@ -75,7 +80,7 @@ public class CameraController {
 
                 // Start the camera capture thread
                 cameraTimer = Executors.newSingleThreadScheduledExecutor();
-                cameraTimer.scheduleAtFixedRate(this::updateFrame, 0, 33, TimeUnit.MILLISECONDS);
+                cameraTimer.scheduleAtFixedRate(this::updateFrame, 0, 100, TimeUnit.MILLISECONDS);
                 System.out.println("Camera started successfully");
             } else {
                 System.err.println("Failed to open camera with index: " + cameraIndex);
@@ -131,9 +136,10 @@ public class CameraController {
             Imgproc.cvtColor(frame, frame, Imgproc.COLOR_BGR2RGB);
 
             // Detect faces if the face detector is available
-            if (faceDetector != null && !faceDetector.empty()) {
+            if (faceDetector != null && !faceDetector.empty() && (frameCounter % FACE_DETECTION_INTERVAL == 0)) {
                 detectFaces(frame);
             }
+            this.frameCounter++;
 
             // Convert the OpenCV Mat to a JavaFX WritableImage
             WritableImage writableImage = convertToFxImage(frame);
@@ -182,10 +188,7 @@ public class CameraController {
         if (cameraView.getImage() != null) {
             Image snapshot = cameraView.getImage();
             Image originalLogo = new Image("file:restaurant_logo.png"); // Load the logo image
-
-            // Scale the logo to a smaller size (adjust these values as needed)
-            double logoWidth = snapshot.getWidth() * 0.15; // 15% of the image width
-            double logoHeight = originalLogo.getHeight() * (logoWidth / originalLogo.getWidth()); // Keep aspect ratio
+            Image border = new Image("file:border.png"); // Load the border image
 
             // Create a canvas to draw both images
             javafx.scene.canvas.Canvas canvas = new javafx.scene.canvas.Canvas(
@@ -202,6 +205,11 @@ public class CameraController {
                 gc.setEffect(null); // Reset effect for logo
             }
 
+            gc.drawImage(border, 0, 0, snapshot.getWidth(), snapshot.getHeight());
+
+            // Scale the logo to a smaller size (adjust these values as needed)
+            double logoWidth = snapshot.getWidth() * 0.15; // 15% of the image width
+            double logoHeight = originalLogo.getHeight() * (logoWidth / originalLogo.getWidth()); // Keep aspect ratio
             // Calculate position for the resized logo in bottom right
             double logoX = snapshot.getWidth() - logoWidth - 10; // 10px padding
             double logoY = snapshot.getHeight() - logoHeight - 10; // 10px padding
