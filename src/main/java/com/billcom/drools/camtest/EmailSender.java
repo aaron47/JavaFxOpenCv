@@ -19,6 +19,7 @@ import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -68,6 +69,12 @@ public class EmailSender {
             sendButton.setDisable(!isValidEmail(newValue));
         });
 
+        emailField.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                openVirtualKeyboad();
+            }
+        });
+
         dialog.getDialogPane().setContent(grid);
 
         // Request focus on the email field by default
@@ -86,6 +93,41 @@ public class EmailSender {
             // Show sending progress indicator
             showProgressDialog(parentStage, emailAddress, imageFile);
         });
+    }
+
+    private static void openVirtualKeyboad() {
+        String os = System.getProperty("os.name").toLowerCase();
+        try {
+            if (os.contains("win")) {
+                new ProcessBuilder("cmd", "/c", "start osk").start();
+            } else if (os.contains("mac")) {
+                new ProcessBuilder("open", "-a", "KeyboardViewer").start();
+            } else if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
+                new ProcessBuilder("onboard").start();
+            }
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to open virtual keyboard");
+            alert.setContentText("Failed to open virtual keyboard. Please try again.");
+            alert.showAndWait();
+        }
+    }
+
+    private static void closeVirtualKeyboard() {
+        String os = System.getProperty("os.name").toLowerCase();
+
+        try {
+            if (os.contains("win")) {
+                new ProcessBuilder("cmd", "/c", "wmic process where name='osk.exe' delete").start();
+            }
+        } catch (IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Failed to close virtual keyboard");
+            alert.setContentText("Failed to close virtual keyboard. Please try again.");
+            alert.showAndWait();
+        }
     }
 
     // Check if email is valid
@@ -124,6 +166,7 @@ public class EmailSender {
         sendTask.thenAccept(success -> {
             Platform.runLater(() -> {
                 progressDialog.close();
+                closeVirtualKeyboard();
                 showResultDialog(parentStage, success, emailAddress);
             });
         });
