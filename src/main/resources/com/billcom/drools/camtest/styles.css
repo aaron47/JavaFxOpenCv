@@ -1,0 +1,206 @@
+.root {
+    -fx-font-family: "Arial", sans-serif;
+}
+
+.root-pane {
+    -fx-background-color: #121212; /* Dark background for dark mode */
+}
+
+/* Camera panel styling */
+.camera-panel {
+    -fx-background-color: #1e1e1e; /* Dark panel background */
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);
+    -fx-border-color: #c79b5f; /* Updated to match main color */
+    -fx-border-width: 2px; /* Make border more prominent */
+}
+
+.camera-view-container {
+    -fx-background-color: #000000; /* Black background for camera view */
+    -fx-padding: 0px; /* Removed padding to maximize space */
+    -fx-min-height: 480px; /* Increased minimum height */
+}
+
+.camera-view {
+    -fx-fit-width: 100%;
+    -fx-fit-height: 100%;
+    -fx-preserve-ratio: true;
+}
+
+/* Options panel styling */
+.options-panel {
+    -fx-background-color: #1e1e1e; /* Dark panel background */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 5);
+    -fx-border-color: #c79b5f; /* Updated to match main color */
+    -fx-border-width: 2px; /* Make border more prominent */
+    -fx-spacing: 0px; /* Reduced spacing */
+}
+
+.processed-image-container {
+    -fx-background-color: #000000; /* Black background for processed image */
+    -fx-min-height: 250px;
+    -fx-max-height: 300px;
+    -fx-padding: 0px; /* Removed padding to maximize space */
+}
+
+.processed-image {
+    -fx-fit-width: 100%;
+    -fx-fit-height: 100%;
+    -fx-preserve-ratio: true;
+}
+
+/* Typography */
+.panel-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #c79b5f; /* Updated to match main color */
+}
+
+.section-header {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #c79b5f; /* Updated to match main color */
+}
+
+/* Button styling */
+.main-button {
+    -fx-background-color: #c79b5f; /* Using the specified color */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 12px 25px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 3);
+    -fx-cursor: hand;
+}
+
+.main-button:hover {
+    -fx-background-color: #a2793c; /* Gold/amber color on hover */
+}
+
+.main-button:pressed {
+    -fx-background-color: #a2793c; /* Darker green when pressed */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 3, 0, 0, 2);
+}
+
+.main-button:disabled {
+    -fx-background-color: #4a4a4a; /* Dark gray for disabled state */
+    -fx-opacity: 0.6;
+}
+
+.secondary-button {
+    -fx-background-color: #424242; /* Dark grey secondary button */
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-border-color: #c79b5f; /* Added border with main color */
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 3);
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #616161; /* Slightly lighter grey on hover */
+}
+
+.secondary-button:pressed {
+    -fx-background-color: #212121; /* Darker grey when pressed */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 3, 0, 0, 2);
+}
+
+.filter-button {
+    -fx-background-color: #1e1e1e; /* Dark background */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 8px 15px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-border-color: #c79b5f; /* Added border with main color */
+    -fx-border-width: 1px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 3);
+    -fx-cursor: hand;
+}
+
+.filter-button:hover {
+    -fx-background-color: #c79b5f; /* Main color on hover */
+}
+
+.filter-button:pressed {
+    -fx-background-color: #a2793c; /* Darker version when pressed */
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 3, 0, 0, 2);
+}
+
+/* Layout elements */
+.button-bar {
+    -fx-background-color: #1a1a1a; /* Slightly lighter than root for contrast */
+    -fx-border-color: #c79b5f; /* Added top border with main color */
+    -fx-border-width: 2px 0 0 0;
+}
+
+.separator {
+    -fx-background-color: #c79b5f; /* Updated to match main color */
+}
+
+.header-container {
+    -fx-background-color: #252525; /* Slightly lighter background for header */
+    -fx-border-color: #c79b5f; /* Updated to match main color */
+    -fx-border-width: 0 0 2px 0;
+}
+
+/* Media queries for responsiveness */
+@media screen and (max-width: 1024px) {
+    .panel-title {
+        -fx-font-size: 20px;
+    }
+
+    .section-header {
+        -fx-font-size: 16px;
+    }
+
+    .main-button {
+        -fx-font-size: 14px;
+        -fx-padding: 10px 20px;
+    }
+
+    .secondary-button {
+        -fx-font-size: 12px;
+        -fx-padding: 8px 15px;
+    }
+
+    .filter-button {
+        -fx-font-size: 12px;
+        -fx-padding: 6px 12px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .panel-title {
+        -fx-font-size: 18px;
+    }
+
+    .main-button, .secondary-button, .filter-button {
+        -fx-max-width: 150px;
+    }
+}
+
+/* Responsive layout */
+/* This will help components expand and contract as the window is resized */
+.camera-panel {
+    -fx-pref-width: 100%;
+}
+
+/* Ensure all HBox and VBox containers grow as needed */
+HBox, VBox {
+    -fx-fill-width: true;
+}
+
+/* Animation effects */
+.main-button, .secondary-button, .filter-button {
+    -fx-transition: -fx-background-color 0.2s ease-in-out;
+}

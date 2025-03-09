@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0"
+            prefHeight="800.0" prefWidth="1280.0" stylesheets="@styles.css"
+            xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.billcom.drools.camtest.CameraController"
+            styleClass="root-pane">
+    <center>
+        <BorderPane fx:id="cameraPanel" styleClass="camera-panel" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+            <center>
+                <StackPane styleClass="camera-view-container" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+                    <ImageView fx:id="cameraView" preserveRatio="true" BorderPane.alignment="CENTER" StackPane.alignment="CENTER" styleClass="camera-view" />
+                </StackPane>
+            </center>
+            <top>
+                <HBox alignment="CENTER" styleClass="header-container">
+                    <Label styleClass="panel-title" text="Camera Preview" BorderPane.alignment="CENTER">
+                        <padding>
+                            <Insets top="10.0" bottom="10.0" />
+                        </padding>
+                    </Label>
+                </HBox>
+            </top>
+            <padding>
+                <Insets top="0" right="0" bottom="0" left="0" />
+            </padding>
+        </BorderPane>
+    </center>
+    <right>
+        <VBox styleClass="options-panel" alignment="TOP_CENTER" prefHeight="600.0" prefWidth="320.0"
+              BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
+            <children>
+                <Label styleClass="panel-title" text="Processed Image">
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                    </VBox.margin>
+                </Label>
+                <StackPane styleClass="processed-image-container" VBox.vgrow="ALWAYS">
+                    <ImageView fx:id="processedImageView" pickOnBounds="true"
+                               preserveRatio="true" StackPane.alignment="CENTER" styleClass="processed-image" />
+                </StackPane>
+                <VBox alignment="TOP_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Label styleClass="section-header" text="Filter Options:">
+                            <VBox.margin>
+                                <Insets top="10.0" />
+                            </VBox.margin>
+                        </Label>
+                        <FlowPane hgap="10.0" vgap="10.0" alignment="CENTER">
+                            <children>
+                                <Button styleClass="filter-button" fx:id="sepiaFilterBtn" mnemonicParsing="false"
+                                        onAction="#onSepiaFilterSelected" prefWidth="135.0" text="Sepia" />
+                                <Button styleClass="filter-button" fx:id="bwFilterBtn" mnemonicParsing="false"
+                                        onAction="#onBWFilterSelected" prefWidth="135.0" text="B&amp;W" />
+                                <Button styleClass="filter-button" fx:id="blurFilterBtn" mnemonicParsing="false"
+                                        onAction="#onBlurFilterSelected" prefWidth="135.0" text="Blur" />
+                                <Button styleClass="filter-button" fx:id="clearFilterBtn" mnemonicParsing="false"
+                                        onAction="#onClearFilterSelected" prefWidth="135.0" text="Clear Filter" />
+                            </children>
+                            <padding>
+                                <Insets top="5.0" bottom="10.0" />
+                            </padding>
+                        </FlowPane>
+                    </children>
+                    <padding>
+                        <Insets left="10.0" right="10.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </VBox>
+    </right>
+    <bottom>
+        <VBox prefWidth="100.0" BorderPane.alignment="CENTER">
+            <children>
+                <Separator prefWidth="200.0" />
+                <FlowPane styleClass="button-bar" alignment="CENTER" hgap="15.0" vgap="15.0">
+                    <children>
+                        <Button styleClass="main-button" fx:id="captureBtn" mnemonicParsing="false"
+                                onAction="#onCapture" prefWidth="200.0" text="Take Picture" />
+                        <Button styleClass="main-button" fx:id="saveBtn" mnemonicParsing="false"
+                                onAction="#onSave" prefWidth="200.0" text="Save Picture" disable="true" />
+                        <Button styleClass="main-button" fx:id="emailBtn" prefWidth="180.0" text="Email Photo"
+                                onAction="#onEmailPhoto" disable="true" />
+                        <Button styleClass="secondary-button" fx:id="switchCameraBtn" mnemonicParsing="false"
+                                onAction="#onSwitchCamera" prefWidth="200.0" text="Switch Camera" />
+                    </children>
+                    <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                    </padding>
+                </FlowPane>
+            </children>
+        </VBox>
+    </bottom>
+</BorderPane>
